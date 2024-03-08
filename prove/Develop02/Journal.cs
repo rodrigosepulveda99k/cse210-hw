@@ -30,7 +30,7 @@ namespace JournalApp
 
         public void SaveToFile(string filename)
         {
-            using (StreamWriter writer = new StreamWriter(filename))
+            using (StreamWriter writer = new(filename))
             {
                 foreach (var entry in entries)
                 {
@@ -39,39 +39,39 @@ namespace JournalApp
             }
         }
 
-public void LoadFromFile(string filename)
-{
-    entries.Clear();
-    try
-    {
-        string line;
-        using (StreamReader reader = new StreamReader(filename))
+        public void LoadFromFile(string filename)
         {
-            while ((line = reader.ReadLine()) != null)
+            entries.Clear();
+            try
             {
-                string[] parts = line.Split('|');
-                if (parts.Length == 3)
+                string line;
+                using (StreamReader reader = new(filename))
                 {
-                    Entry entry = new Entry(parts[1], parts[2], parts[0]);
-                    entries.Add(entry);
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        string[] parts = line.Split('|');
+                        if (parts.Length == 3)
+                        {
+                            Entry entry = new(parts[1], parts[2], parts[0]);
+                            entries.Add(entry);
+                        }
+                    }
                 }
+                Console.WriteLine("Journal loaded successfully!");
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine($"Error: The file '{filename}' could not be found.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while loading the journal: {ex.Message}");
             }
         }
-        Console.WriteLine("Journal loaded successfully!");
-    }
-    catch (FileNotFoundException)
-    {
-        Console.WriteLine($"Error: The file '{filename}' could not be found.");
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"An error occurred while loading the journal: {ex.Message}");
-    }
-}
 
-        private string GetDebuggerDisplay()
-        {
-            return ToString();
-        }
+            private string GetDebuggerDisplay()
+            {
+                return ToString();
+            }
     }
 }

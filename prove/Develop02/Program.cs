@@ -4,8 +4,8 @@ class Program
     {
         static void Main(string[] args)
         {
-            Journal journal = new Journal();
-            PromptGenerator promptGenerator = new PromptGenerator();
+            Journal journal = new();
+            PromptGenerator promptGenerator = new();
 
             bool running = true;
             while (running)
@@ -27,7 +27,7 @@ class Program
                         Console.Write("Enter your response: ");
                         string response = Console.ReadLine();
                         string date = DateTime.Now.ToString("yyyy-MM-dd");
-                        Entry newEntry = new Entry(prompt, response, date);
+                        Entry newEntry = new(prompt, response, date);
                         journal.AddEntry(newEntry);
                         Console.WriteLine("Entry added successfully!");
                         break;
