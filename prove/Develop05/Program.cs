@@ -14,7 +14,6 @@ class Program
         tracker.DisplayGoals();
         Console.WriteLine("Total Score: " + tracker.CalculateScore());
 
-        // Saving and loading goals
         tracker.SaveGoals("goals.txt");
         tracker.LoadGoals("goals.txt");
     }
